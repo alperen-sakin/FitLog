@@ -10,11 +10,11 @@ import com.example.fitlog.presentation.home.HomeScreen
 fun NavigationHost(
     navController: NavHostController,
     startDestination: String = "home"
-){
+) {
     NavHost(
         navController = navController,
         startDestination = startDestination
-    ){
+    ) {
         composable("home") {
             HomeScreen(navController)
         }

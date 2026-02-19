@@ -11,3 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val Blue500 = Color(0xff2563eb)
+val Green500 = Color(0xff22c55e)
+val Natural50 = Color(0xfffafafa)
+val Neutral900 = Color(0xff171717)
+val Neutral500 = Color(0xff737373)

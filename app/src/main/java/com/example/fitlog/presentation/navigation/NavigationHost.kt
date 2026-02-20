@@ -16,7 +16,7 @@ fun NavigationHost(
         startDestination = startDestination
     ) {
         composable("home") {
-            HomeScreen(navController)
+            HomeScreen()
         }
     }
 }

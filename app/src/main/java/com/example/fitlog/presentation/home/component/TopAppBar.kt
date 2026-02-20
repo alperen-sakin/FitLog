@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fitlog.ui.theme.Blue500
 import com.example.fitlog.ui.theme.Inter
-import com.example.fitlog.ui.theme.Neutral500
+import com.example.fitlog.ui.theme.Natural100
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +44,7 @@ fun TopAppBar() {
                 modifier = Modifier
                     .padding(end = 8.dp)
                     .background(
-                        color = Neutral500.copy(alpha = 0.1f),
+                        color = Natural100,
                         shape = CircleShape
                     )
             ) {

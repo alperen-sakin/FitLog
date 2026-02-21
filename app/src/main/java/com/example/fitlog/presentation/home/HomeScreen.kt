@@ -6,19 +6,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.fitlog.domain.model.Days
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.fitlog.presentation.home.component.DaysBox
 import com.example.fitlog.presentation.home.component.TopAppBar
+import com.example.fitlog.presentation.home.viewModel.HomeViewModel
 
 @Composable
 fun HomeScreen(
     // navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
-    var selectedDay by remember { mutableStateOf(Days.Mon) }
+    val state = viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -32,10 +33,8 @@ fun HomeScreen(
         ) {
             DaysBox(
                 modifier = Modifier,
-                selectedDay = selectedDay,
-                onDaySelected = {
-                    selectedDay = Days.valueOf(it)
-                }
+                selectedDay = state.value.selectedDay,
+                onDaySelected = viewModel::onDaySelected
             )
         }
     }

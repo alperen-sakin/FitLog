@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.fitlog.domain.model.Days
 import com.example.fitlog.ui.theme.Blue500
 import com.example.fitlog.ui.theme.Inter
 import com.example.fitlog.ui.theme.Natural100
@@ -27,9 +28,9 @@ import com.example.fitlog.ui.theme.Natural500
 @Composable
 fun DayBox(
     modifier: Modifier = Modifier,
-    label: String,
+    label: Days,
     selectedDay: Boolean,
-    onDaySelected: (String) -> Unit
+    onDaySelected: (Days) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -47,7 +48,7 @@ fun DayBox(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = label,
+                text = label.name,
                 color = if (selectedDay) Color.White else Natural500,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium

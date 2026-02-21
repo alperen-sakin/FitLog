@@ -17,7 +17,7 @@ import com.example.fitlog.domain.model.Days
 fun DaysBox(
     modifier: Modifier,
     selectedDay: Days,
-    onDaySelected: (String) -> Unit
+    onDaySelected: (Days) -> Unit
 ) {
     LazyRow(
         modifier = modifier
@@ -29,7 +29,7 @@ fun DaysBox(
     ) {
         items(Days.entries) { day ->
             DayBox(
-                label = day.name,
+                label = day,
                 selectedDay = (day == selectedDay),
                 onDaySelected = onDaySelected
 

@@ -82,7 +82,7 @@ fun ProgressCard(
             )
 
             Text(
-                text = "$leftExercises Exercises left",
+                text = if (leftExercises > 0) "$leftExercises Exercises left" else "All exercises completed",
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
                 fontSize = 10.sp

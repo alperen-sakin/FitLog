@@ -8,6 +8,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val Blue500 = Color(0xff2563eb)
 val Green500 = Color(0xff22c55e)
+val Green50 = Color(0xffc5f0d4)
 val Natural50 = Color(0xfffafafa)
 val Natural100 = Color(0xffF5F5F5)
 val Natural900 = Color(0xff171717)

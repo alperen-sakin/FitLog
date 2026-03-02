@@ -1,0 +1,22 @@
+{
+  "exercises": [
+    { "id": 1, "name": "Dumbbell Row", "image_name": "dumbbell_row" },
+    { "id": 2, "name": "Dumbbell Floor Press", "image_name": "dumbbell_floor_press" },
+    { "id": 3, "name": "Rear Delt Fly", "image_name": "rear_delt_fly" },
+    { "id": 4, "name": "Overhead Press", "image_name": "overhead_press" },
+    { "id": 5, "name": "Dumbbell Bicep Curl", "image_name": "dumbbell_bicep_curl" },
+    { "id": 6, "name": "Goblet Squat", "image_name": "goblet_squat" },
+    { "id": 7, "name": "Dumbbell Deadlift", "image_name": "dumbbell_deadlift" },
+    { "id": 8, "name": "Alternating Lunges", "image_name": "alternating_lunges" },
+    { "id": 9, "name": "Plank", "image_name": "plank" },
+    { "id": 10, "name": "Bird-Dog", "image_name": "bird_dog" },
+    { "id": 11, "name": "Cat-Cow", "image_name": "cat_cow" },
+    { "id": 12, "name": "Doorway Stretch", "image_name": "doorway_stretch" },
+    { "id": 13, "name": "Child’s Pose", "image_name": "childs_pose" },
+    { "id": 14, "name": "Scapular Squeeze", "image_name": "scapular_squeeze" },
+    { "id": 15, "name": "Chin Tucks", "image_name": "chin_tucks" },
+    { "id": 16, "name": "Russian Twist", "image_name": "russian_twist" },
+    { "id": 17, "name": "Glute Bridge", "image_name": "glute_bridge" },
+    { "id": 18, "name": "Cobra Stretch", "image_name": "cobra_stretch" }
+  ]
+}

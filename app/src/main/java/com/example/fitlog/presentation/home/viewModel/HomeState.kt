@@ -2,11 +2,10 @@ package com.example.fitlog.presentation.home.viewModel
 
 import com.example.fitlog.domain.model.Days
 import com.example.fitlog.domain.model.Exercise
-import com.example.fitlog.domain.model.MockData
 
 data class HomeState(
     val selectedDay: Days = Days.Mon,
-    val exercises: List<Exercise> = MockData.exerciseList,
+    val exercises: List<Exercise> = emptyList(),
 
 ) {
     val totalExercise: Int get() = exercises.size

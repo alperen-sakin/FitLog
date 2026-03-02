@@ -1,5 +1,6 @@
 package com.example.fitlog.presentation.home.component
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,16 +21,19 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fitlog.R
 import com.example.fitlog.domain.model.Exercise
 import com.example.fitlog.ui.theme.Green50
 import com.example.fitlog.ui.theme.Green500
@@ -37,6 +41,7 @@ import com.example.fitlog.ui.theme.Inter
 import com.example.fitlog.ui.theme.Natural500
 import com.example.fitlog.ui.theme.Natural900
 
+@SuppressLint("LocalContextResourcesRead")
 @Composable
 fun ExerciseCard(
     exercise: Exercise,
@@ -60,8 +65,13 @@ fun ExerciseCard(
                 modifier = Modifier,
                 contentAlignment = Alignment.Center
             ) {
+                val context = LocalContext.current
+
+                val imageResId = remember(exercise.img) {
+                    context.resources.getIdentifier(exercise.img, "drawable", context.packageName)
+                }
                 Image(
-                    painter = painterResource(id = exercise.img),
+                    painter = painterResource(id = if (imageResId !=0) imageResId else R.drawable.plank),
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier

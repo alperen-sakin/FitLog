@@ -19,10 +19,9 @@ class HomeViewModel @Inject constructor(
 
     init {
         loadExercises()
-
     }
 
-    private fun loadExercises(){
+    private fun loadExercises() {
         val exercises = repository.getExercises()
         _state.update { it.copy(exercises = exercises) }
     }

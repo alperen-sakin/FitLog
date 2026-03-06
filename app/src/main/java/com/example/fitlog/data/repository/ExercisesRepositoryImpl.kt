@@ -1,7 +1,6 @@
 package com.example.fitlog.data.repository
 
 import android.content.Context
-import com.example.fitlog.data.dto.ExerciseDto
 import com.example.fitlog.data.dto.ExerciseResponseDto
 import com.example.fitlog.data.mapper.toDomain
 import com.example.fitlog.domain.model.Exercise
@@ -21,5 +20,4 @@ class ExercisesRepositoryImpl @Inject constructor(
 
         return responseDto.exercises.map { it.toDomain() }
     }
-
 }

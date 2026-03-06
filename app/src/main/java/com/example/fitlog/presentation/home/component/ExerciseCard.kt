@@ -71,7 +71,7 @@ fun ExerciseCard(
                     context.resources.getIdentifier(exercise.img, "drawable", context.packageName)
                 }
                 Image(
-                    painter = painterResource(id = if (imageResId !=0) imageResId else R.drawable.plank),
+                    painter = painterResource(id = if (imageResId != 0) imageResId else R.drawable.plank),
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier

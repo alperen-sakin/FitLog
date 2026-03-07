@@ -1,6 +1,7 @@
 package com.example.fitlog.presentation.home.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -24,7 +25,9 @@ import com.example.fitlog.ui.theme.Natural100
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar() {
+fun TopAppBar(
+    onAddClick: () -> Unit = {}
+) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.White,
@@ -52,6 +55,9 @@ fun TopAppBar() {
                     imageVector = Icons.Rounded.AddCircleOutline,
                     contentDescription = "Add",
                     tint = Color.Black,
+                    modifier = Modifier.clickable(
+                        onClick = onAddClick
+                    )
                 )
             }
         }

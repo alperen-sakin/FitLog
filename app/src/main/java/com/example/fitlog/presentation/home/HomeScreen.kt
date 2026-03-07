@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.example.fitlog.presentation.home.component.DaysBox
 import com.example.fitlog.presentation.home.component.ExerciseCard
 import com.example.fitlog.presentation.home.component.ProgressCard
@@ -21,14 +22,18 @@ import com.example.fitlog.presentation.home.viewModel.HomeViewModel
 
 @Composable
 fun HomeScreen(
-    // navController: NavController,
+    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
-            TopAppBar()
+            TopAppBar(
+                onAddClick = {
+                    navController.navigate("add")
+                }
+            )
         }
     ) {
         Column(

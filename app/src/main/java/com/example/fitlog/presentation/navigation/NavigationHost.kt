@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.fitlog.presentation.addScreen.AddScreen
 import com.example.fitlog.presentation.home.HomeScreen
 
 @Composable
@@ -16,7 +17,15 @@ fun NavigationHost(
         startDestination = startDestination
     ) {
         composable("home") {
-            HomeScreen()
+            HomeScreen(
+                navController
+            )
+        }
+
+        composable("add") {
+            AddScreen(
+                // navController = navController,
+            )
         }
     }
 }

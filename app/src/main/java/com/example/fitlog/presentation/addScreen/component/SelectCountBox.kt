@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
@@ -37,11 +38,8 @@ fun SelectCountBox(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = Color.White
-            )
-            .border(
-                width = 1.dp,
-                color = Natural500
+                color = Color.White,
+                shape = CircleShape
             )
             .padding(4.dp)
     ) {
@@ -55,7 +53,16 @@ fun SelectCountBox(
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .border(
+                    width = 1.dp,
+                    color = Natural500,
+                    shape = CircleShape
+                )
+                .background(
+                    color = Color.White
+                ),
+
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,7 +72,8 @@ fun SelectCountBox(
                 modifier = Modifier.clickable(
                     onClick = onMinusClick
 
-                )
+                ),
+                tint = Color.Red
             )
 
             Text(
@@ -82,7 +90,8 @@ fun SelectCountBox(
                 modifier = Modifier.clickable(
                     onClick = onPlusClick
 
-                )
+                ),
+                tint = Color.Green
             )
         }
     }

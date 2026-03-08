@@ -24,7 +24,7 @@ fun NavigationHost(
 
         composable("add") {
             AddScreen(
-                // navController = navController,
+                navController = navController,
             )
         }
     }

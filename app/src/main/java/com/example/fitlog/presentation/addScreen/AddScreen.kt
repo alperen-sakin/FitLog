@@ -6,19 +6,27 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.example.fitlog.presentation.addScreen.component.SelectExerciseBox
 import com.example.fitlog.presentation.addScreen.viewModel.AddScreenViewModel
 
 @Composable
 fun AddScreen(
     viewModel: AddScreenViewModel = hiltViewModel(),
-    // navController: NavController
+    navController: NavController
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(state.value.isSaved) {
+        if (state.value.isSaved) {
+            navController.popBackStack()
+        }
+    }
 
     Scaffold {
         LazyColumn(
@@ -33,6 +41,12 @@ fun AddScreen(
                         .padding(8.dp),
                     onUpdate = { updateType ->
                         viewModel.onUpdateExercise(exercise, updateType)
+                    },
+                    onAddClick = {
+                        viewModel.saveExercise(exercise)
+                    },
+                    onDaySelected = { day ->
+                        viewModel.onDaySelected(exercise, day)
                     }
 
                 )

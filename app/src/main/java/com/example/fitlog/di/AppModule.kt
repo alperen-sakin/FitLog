@@ -1,6 +1,9 @@
 package com.example.fitlog.di
 
 import android.content.Context
+import androidx.room.Room
+import com.example.fitlog.data.local.AppDataBase
+import com.example.fitlog.data.local.dao.ExerciseDao
 import com.example.fitlog.data.repository.ExercisesRepositoryImpl
 import com.example.fitlog.domain.repository.ExercisesRepository
 import dagger.Module
@@ -16,9 +19,30 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideExercisesRepository(
+    fun provideDataBase(
         @ApplicationContext context: Context
+    ): AppDataBase {
+        return Room.databaseBuilder(
+            context,
+            AppDataBase::class.java,
+            "app_database"
+        ).build()
+    }
+
+    @Provides
+    fun provideExerciseDao(db: AppDataBase): ExerciseDao {
+        return db.exerciseDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideExercisesRepository(
+        @ApplicationContext context: Context,
+        dao: ExerciseDao
     ): ExercisesRepository {
-        return ExercisesRepositoryImpl(context)
+        return ExercisesRepositoryImpl(
+            context,
+            exerciseDao = dao
+        )
     }
 }

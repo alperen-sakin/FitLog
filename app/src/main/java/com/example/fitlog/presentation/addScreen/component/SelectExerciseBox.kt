@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -46,6 +48,7 @@ import com.example.fitlog.domain.model.Days
 import com.example.fitlog.domain.model.Exercise
 import com.example.fitlog.presentation.addScreen.viewModel.AddScreenViewModel
 import com.example.fitlog.ui.theme.Blue500
+import com.example.fitlog.ui.theme.Green500
 import com.example.fitlog.ui.theme.Inter
 import com.example.fitlog.ui.theme.Natural500
 import com.example.fitlog.ui.theme.Natural900
@@ -56,6 +59,8 @@ fun SelectExerciseBox(
     exercise: Exercise,
     modifier: Modifier = Modifier,
     onUpdate: (AddScreenViewModel.UpdateType) -> Unit,
+    onAddClick: () -> Unit,
+    onDaySelected: (Days) -> Unit
 ) {
     var isOpen by rememberSaveable { mutableStateOf(false) }
 
@@ -93,12 +98,13 @@ fun SelectExerciseBox(
             }
 
             AnimatedVisibility(visible = isOpen) {
-                BottomSection(exercise, onUpdate)
+                BottomSection(exercise, onUpdate, onAddClick, onDaySelected)
             }
         }
     }
 }
 
+@SuppressLint("LocalContextResourcesRead", "DiscouragedApi")
 @Composable
 private fun TopSection(exercise: Exercise, isOpen: Boolean) {
     val context = LocalContext.current
@@ -133,7 +139,9 @@ private fun TopSection(exercise: Exercise, isOpen: Boolean) {
 @Composable
 private fun BottomSection(
     exercise: Exercise,
-    onUpdate: (AddScreenViewModel.UpdateType) -> Unit
+    onUpdate: (AddScreenViewModel.UpdateType) -> Unit,
+    onAddClick: () -> Unit,
+    onDaySelected: (Days) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -177,12 +185,39 @@ private fun BottomSection(
             )
         }
 
-        SingleChoiceSegmentedButton()
+        SingleChoiceSegmentedButton(
+            onDaySelected = onDaySelected
+        )
+
+        AddButton(onAddClick)
     }
 }
 
 @Composable
-fun SingleChoiceSegmentedButton() {
+private fun AddButton(onAddClick: () -> Unit) {
+    Button(
+        onClick = onAddClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Green500,
+            contentColor = Color.White
+        )
+    ) {
+        Text(
+            text = "Add",
+            fontSize = 18.sp,
+            fontFamily = Inter,
+            fontWeight = FontWeight.Bold,
+        )
+    }
+}
+
+@Composable
+fun SingleChoiceSegmentedButton(
+    onDaySelected: (Days) -> Unit
+) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     val options = Days.entries.toTypedArray()
 
@@ -195,6 +230,7 @@ fun SingleChoiceSegmentedButton() {
                 ),
                 onClick = {
                     selectedIndex = index
+                    onDaySelected(label)
                 },
                 selected = index == selectedIndex,
                 label = { Text(label.name) },

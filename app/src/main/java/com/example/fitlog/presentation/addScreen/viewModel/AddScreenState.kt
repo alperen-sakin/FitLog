@@ -4,5 +4,6 @@ import com.example.fitlog.domain.model.Exercise
 
 data class AddScreenState(
     val exercises: List<Exercise> = emptyList(),
+    val isSaved: Boolean = false
 
 )

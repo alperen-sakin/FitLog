@@ -10,7 +10,11 @@ data class HomeState(
 ) {
     val totalExercise: Int get() = exercises.size
     val completedExercise: Int get() = exercises.count { it.done }
-
-    val currentProgress: Float get() = completedExercise.toFloat() / totalExercise.toFloat()
     val leftExercise: Int get() = totalExercise - completedExercise
+
+    val currentProgress: Float get() = if (totalExercise > 0) {
+        completedExercise.toFloat() / totalExercise.toFloat()
+    } else {
+        0f
+    }
 }

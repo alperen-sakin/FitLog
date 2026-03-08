@@ -1,12 +1,15 @@
 package com.example.fitlog.presentation.addScreen.viewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.fitlog.domain.model.Days
 import com.example.fitlog.domain.model.Exercise
 import com.example.fitlog.domain.repository.ExercisesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,6 +46,30 @@ class AddScreenViewModel @Inject constructor(
                 }
             }
             currentState.copy(exercises = updatedList)
+        }
+    }
+    fun onDaySelected(exercise: Exercise, day: Days) {
+        _state.update { currentState ->
+
+            val updatedList = currentState.exercises.map { item ->
+                if (item.name == exercise.name) {
+                    item.copy(day = day.name)
+                } else {
+                    item
+                }
+            }
+            currentState.copy(exercises = updatedList)
+        }
+    }
+
+    fun saveExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            if (exercise.day.isNotEmpty()) {
+                onDaySelected(exercise, Days.Mon)
+            }
+
+            exercisesRepository.insertUseExercises(exercise)
+            _state.update { it.copy(isSaved = true) }
         }
     }
 

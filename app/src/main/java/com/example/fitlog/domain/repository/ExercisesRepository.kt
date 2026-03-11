@@ -8,4 +8,6 @@ interface ExercisesRepository {
 
     suspend fun insertUseExercises(exercise: Exercise)
     fun getExercisesByDay(day: String): Flow<List<Exercise>>
+
+    suspend fun deleteExercise(exercise: Exercise)
 }

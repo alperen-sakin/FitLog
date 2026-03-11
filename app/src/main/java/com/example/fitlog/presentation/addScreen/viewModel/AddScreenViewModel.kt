@@ -64,11 +64,13 @@ class AddScreenViewModel @Inject constructor(
 
     fun saveExercise(exercise: Exercise) {
         viewModelScope.launch {
-            if (exercise.day.isNotEmpty()) {
-                onDaySelected(exercise, Days.Mon)
+            val exerciseToSave = if (exercise.day.isEmpty() || exercise.day == "None") {
+                exercise.copy(day = Days.Mon.name)
+            } else {
+                exercise
             }
 
-            exercisesRepository.insertUseExercises(exercise)
+            exercisesRepository.insertUseExercises(exerciseToSave)
             _state.update { it.copy(isSaved = true) }
         }
     }

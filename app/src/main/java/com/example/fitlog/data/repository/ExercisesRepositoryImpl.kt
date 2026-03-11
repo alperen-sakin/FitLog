@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ExercisesRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val exerciseDao: ExerciseDao
 ) : ExercisesRepository {
     override fun getExercises(): List<Exercise> {
@@ -35,5 +35,9 @@ class ExercisesRepositoryImpl @Inject constructor(
         return exerciseDao.getExercisesByDay(day).map { entities ->
             entities.map { it.toDomainModel() }
         }
+    }
+
+    override suspend fun deleteExercise(exercise: Exercise) {
+        exerciseDao.deleteExercise(exercise.toEntity())
     }
 }

@@ -52,4 +52,10 @@ class HomeViewModel @Inject constructor(
             repository.insertUseExercises(updatedExercise)
         }
     }
+
+    fun onDeleteExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            repository.deleteExercise(exercise)
+        }
+    }
 }

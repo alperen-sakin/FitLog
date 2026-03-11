@@ -41,6 +41,12 @@ The project follows **Clean Architecture** principles to ensure scalability and 
 
 4. Run the app on an emulator or physical device (API 26+).
 
+## 📲 Download & Try
+
+You can download the latest version of the APK from the [Releases](https://github.com/alperen-sakin/FitLog/releases) page.
+
+> **Note:** Since the app is not on Play Store, you may need to allow "Install from unknown sources" on your Android device to install the APK.
+
 ## 📸 Screenshots & Demos
 
 | Home Screen | Add Exercise |

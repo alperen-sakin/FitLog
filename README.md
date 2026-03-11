@@ -33,7 +33,7 @@ The project follows **Clean Architecture** principles to ensure scalability and 
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/alperen-sakin/FitLog.git](https://github.com/alperen-sakin/FitLog.git)
+   git clone https://github.com/alperen-sakin/FitLog.git
 
 2. Open the project in Android Studio (Ladybug or newer).
 

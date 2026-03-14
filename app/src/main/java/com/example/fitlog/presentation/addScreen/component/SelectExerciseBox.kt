@@ -22,13 +22,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -60,7 +60,8 @@ fun SelectExerciseBox(
     modifier: Modifier = Modifier,
     onUpdate: (AddScreenViewModel.UpdateType) -> Unit,
     onAddClick: () -> Unit,
-    onDaySelected: (Days) -> Unit
+    selectedDays: Set<Days>,
+    onDayToggled: (Days) -> Unit
 ) {
     var isOpen by rememberSaveable { mutableStateOf(false) }
 
@@ -98,7 +99,7 @@ fun SelectExerciseBox(
             }
 
             AnimatedVisibility(visible = isOpen) {
-                BottomSection(exercise, onUpdate, onAddClick, onDaySelected)
+                BottomSection(exercise, onUpdate, onAddClick, selectedDays, onDayToggled)
             }
         }
     }
@@ -141,7 +142,8 @@ private fun BottomSection(
     exercise: Exercise,
     onUpdate: (AddScreenViewModel.UpdateType) -> Unit,
     onAddClick: () -> Unit,
-    onDaySelected: (Days) -> Unit
+    selectedDays: Set<Days>,
+    onDayToggled: (Days) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -185,8 +187,9 @@ private fun BottomSection(
             )
         }
 
-        SingleChoiceSegmentedButton(
-            onDaySelected = onDaySelected
+        MultiChoiceSegmentedButton(
+            selectedDays = selectedDays,
+            onDayToggled = onDayToggled
         )
 
         AddButton(onAddClick)
@@ -215,30 +218,37 @@ private fun AddButton(onAddClick: () -> Unit) {
 }
 
 @Composable
-fun SingleChoiceSegmentedButton(
-    onDaySelected: (Days) -> Unit
+fun MultiChoiceSegmentedButton(
+    selectedDays: Set<Days>,
+    onDayToggled: (Days) -> Unit
 ) {
-    var selectedIndex by remember { mutableIntStateOf(0) }
     val options = Days.entries.toTypedArray()
 
-    SingleChoiceSegmentedButtonRow {
-        options.forEachIndexed { index, label ->
+    MultiChoiceSegmentedButtonRow {
+        options.forEachIndexed { index, day ->
+            val isSelected = selectedDays.contains(day)
+
             SegmentedButton(
                 shape = SegmentedButtonDefaults.itemShape(
                     index = index,
                     count = options.size
                 ),
-                onClick = {
-                    selectedIndex = index
-                    onDaySelected(label)
+                onCheckedChange = {
+                    onDayToggled(day)
                 },
-                selected = index == selectedIndex,
-                label = { Text(label.name) },
-                icon = {
-                    SegmentedButtonDefaults.Icon(
-                        active = false
+                checked = isSelected,
+                label = {
+                    Text(
+                        text = day.name,
+                        style = MaterialTheme.typography.labelSmall,
+                        maxLines = 1
                     )
                 },
+//                icon = {
+//                    SegmentedButtonDefaults.Icon(
+//                        active = false
+//                    )
+//                },
                 colors = SegmentedButtonDefaults.colors(
                     activeContentColor = Color.White,
                     activeContainerColor = Blue500,

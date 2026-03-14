@@ -50,27 +50,31 @@ class AddScreenViewModel @Inject constructor(
     }
     fun onDaySelected(exercise: Exercise, day: Days) {
         _state.update { currentState ->
-
-            val updatedList = currentState.exercises.map { item ->
-                if (item.name == exercise.name) {
-                    item.copy(day = day.name)
-                } else {
-                    item
-                }
+            val currentSelected = currentState.selectedDaysMap[exercise.name] ?: emptySet()
+            val newSelected = if (currentSelected.contains(day)) {
+                currentSelected - day
+            } else {
+                currentSelected + day
             }
-            currentState.copy(exercises = updatedList)
+
+            currentState.copy(
+                selectedDaysMap = currentState.selectedDaysMap + (exercise.name to newSelected)
+            )
         }
     }
 
     fun saveExercise(exercise: Exercise) {
         viewModelScope.launch {
-            val exerciseToSave = if (exercise.day.isEmpty() || exercise.day == "None") {
-                exercise.copy(day = Days.Mon.name)
-            } else {
-                exercise
-            }
+            val selectedDays = _state.value.selectedDaysMap[exercise.name] ?: setOf(Days.Mon)
 
-            exercisesRepository.insertUseExercises(exerciseToSave)
+            selectedDays.forEach { day ->
+                val exerciseToSave = exercise.copy(
+                    id = 0,
+                    day = day.name,
+                    done = false
+                )
+                exercisesRepository.insertUseExercises(exerciseToSave)
+            }
             _state.update { it.copy(isSaved = true) }
         }
     }

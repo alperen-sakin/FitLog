@@ -35,6 +35,7 @@ fun AddScreen(
 
         ) {
             items(state.value.exercises) { exercise ->
+                val selectedDaysForThisExercise = state.value.selectedDaysMap[exercise.name] ?: emptySet()
                 SelectExerciseBox(
                     exercise = exercise,
                     modifier = Modifier
@@ -45,7 +46,8 @@ fun AddScreen(
                     onAddClick = {
                         viewModel.saveExercise(exercise)
                     },
-                    onDaySelected = { day ->
+                    selectedDays = selectedDaysForThisExercise,
+                    onDayToggled = { day ->
                         viewModel.onDaySelected(exercise, day)
                     }
 
